@@ -1,0 +1,53 @@
+---      
+    - name: Install softwares
+      apt:
+        name: "{{ item }}"
+        state: latest
+        update_cache: yes
+      with_items:
+        - python3-pip
+        - python3-venv
+        - apt-transport-https
+        - ca-certificates
+        - gnupg
+        - software-properties-common
+        - curl
+        - git
+        - tilix
+        - vim
+        - flameshot
+        - zsh
+        - kubectl
+        - helm
+        - terraform
+        - ulauncher
+        - vagrant
+        - code
+        - unzip
+        - gzip
+        - virtualbox
+        - virtualbox-ext-pack
+        - docker-ce
+      become: true
+
+    - name: Install OhMyZSH
+      become: false
+      ansible.builtin.shell: sh -c "$(curl -fsSL https://raw.github.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
+
+    - name: zshrc configuration
+      become: false
+      ansible.builtin.template:
+        src: ../templates/zshrc.j2
+        dest: /home/{{ user.stdout  }}/.zshrc
+        owner: {{ user.stdout  }}
+        group: {{ user.stdout  }}
+        mode: '0644'
+
+    - name: power10k configuration
+      become: false
+      ansible.builtin.template:
+        src: ../templates/p10k.zsh.j2
+        dest: /home/{{ user.stdout  }}/.p10k.zsh
+        owner: {{ user.stdout  }}
+        group: {{ user.stdout  }}
+        mode: '0664'

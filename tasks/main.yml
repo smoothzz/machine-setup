@@ -1,0 +1,5 @@
+- import_tasks: apt-key.yml
+
+- import_tasks: apt-repo.yml
+
+- import_tasks: install.yml

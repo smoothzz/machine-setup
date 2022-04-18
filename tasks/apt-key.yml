@@ -1,0 +1,31 @@
+---
+- name: Add HashiCorp apt signing key
+  become: true
+  apt_key:
+    url: "https://apt.releases.hashicorp.com/gpg"
+    state: present
+
+- name: Add kubectl key
+  become: true
+  apt_key:
+    url: "https://packages.cloud.google.com/apt/doc/apt-key.gpg"
+    dest: /usr/share/keyrings/kubernetes-archive-keyring.gpg
+    state: present
+
+- name: Add Microsoft key
+  become: true
+  apt_key:
+    url: "https://packages.microsoft.com/keys/microsoft.asc"
+    state: present
+
+- name: Add Helm key
+  become: true
+  apt_key:
+    url: "https://baltocdn.com/helm/signing.asc"
+    state: present
+
+- name: Add Docker GPG apt Key
+  become: true
+  apt_key:
+    url: https://download.docker.com/linux/ubuntu/gpg
+    state: present
